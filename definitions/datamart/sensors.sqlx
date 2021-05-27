@@ -1,0 +1,17 @@
+config {
+  type: "table",
+  schema: "datamart",
+  description: "Table with all sensordata and latest maintenance"
+}
+
+select
+  data.*,
+  metadata.*
+except(sensor_name),
+maintenance_date
+from
+  ${ref("sensors_data_c")} as data
+  left join ${ref("sensors_metadata_c")} as metadata on data.sensor_name = metadata.sensor_name
+  left join ${ref("sensors_service_c")} as service on data.sensor_name = service.sensor_name
+order by
+  data.timestamp desc

@@ -1,0 +1,10 @@
+config {
+  type: "view"
+}
+
+select
+  sensor_name,
+  maintenance_dt as maintenance_date,
+  company
+from
+  ${ref("sensors_service")}

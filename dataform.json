@@ -1,0 +1,6 @@
+{
+    "warehouse": "bigquery",
+    "defaultSchema": "clean",
+    "assertionSchema": "dataform_assertions",
+    "defaultDatabase": "dataform-mfa"
+}

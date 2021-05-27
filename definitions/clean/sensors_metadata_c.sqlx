@@ -1,0 +1,12 @@
+config {
+  type: "view"
+}
+
+select
+  sensor as sensor_name,
+  location_name,
+  country,
+  st_Geogpoint(location_coordinates_N, location_coordinates_E) as geo_location,
+  date_deployed
+from
+  ${ref("sensors_metadata")}
