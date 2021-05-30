@@ -11,12 +11,14 @@ import (
 func handler(w http.ResponseWriter, r *http.Request) {
         log.Print("helloworld: received a request")
 
-        cmd := exec.CommandContext(r.Context(), "/bin/sh", "script.sh")
+        cmd := exec.Command("/bin/sh", "script.sh")
         cmd.Stderr = os.Stderr
         out, err := cmd.Output()
         if err != nil {
+		log.Fatal(err)
                 w.WriteHeader(500)
         }
+        fmt.Printf("output logging ",out)
         w.Write(out)
 }
 
