@@ -3,3 +3,18 @@ steps:
   args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/dataform-mfa/dataform-cr-docker/dataform-cr:tag1', '.' ]
 images:
 - 'europe-west1-docker.pkg.dev/dataform-mfa/dataform-cr-docker/dataform-cr:tag1'
+# Deploy container image to Cloud Run
+ - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+   entrypoint: gcloud
+   args:
+   - 'run'
+   - 'deploy'
+   - 'dataform-cr'
+   - '--image'
+   - 'europe-west1-docker.pkg.dev/dataform-mfa/dataform-cr-docker/dataform-cr:tag1'
+   - '--region'
+   - 'REGION'
+   - '--platform'
+   - 'managed'
+ images:
+ - 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA'

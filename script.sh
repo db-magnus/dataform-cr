@@ -1,2 +1,2 @@
 #!/bin/sh
-dataform compile
+dataform run
