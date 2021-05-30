@@ -1,20 +1,14 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/dataform-mfa/dataform-cr-docker/dataform-cr:tag1', '.' ]
-images:
-- 'europe-west1-docker.pkg.dev/dataform-mfa/dataform-cr-docker/dataform-cr:tag1'
+  args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}', '.' ]
+#images:
+#- 'europe-west1-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE)'
 # Deploy container image to Cloud Run
- - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-   entrypoint: gcloud
-   args:
-   - 'run'
-   - 'deploy'
-   - 'dataform-cr'
-   - '--image'
-   - 'europe-west1-docker.pkg.dev/dataform-mfa/dataform-cr-docker/dataform-cr:tag1'
-   - '--region'
-   - 'REGION'
-   - '--platform'
-   - 'managed'
- images:
- - 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA'
+#- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#j   entrypoint: gcloud
+#   args: [ 'run', 'deploy', '$SERVICE_NAME', '--image', 'europe-west1-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}', '--region', 'europe-west1', '--platform', 'managed']
+substitutions:
+ _REPOSITORY: dataform-cr-docker
+ _IMAGE: dataform-cr
+images:
+- 'europe-west1-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/dataform-cr'
