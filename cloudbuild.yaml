@@ -4,7 +4,7 @@ steps:
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args: [ 'run', 'deploy', '$SERVICE_NAME', '--image', 'europe-west1-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}', '--region', 'europe-west1', '--platform', 'managed']
+  args: [ 'run', 'deploy', '${_IMAGE}', '--image', 'europe-west1-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:$COMMIT_SHA', '--region', 'europe-west1', '--platform', 'managed']
 substitutions:
  _REPOSITORY: dataform-cr-docker
  _IMAGE: dataform-cr
