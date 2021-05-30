@@ -7,6 +7,7 @@ FROM node:12.18.1
 WORKDIR /dataform
 COPY dataform.json .
 COPY definitions .
+COPY package.json .
 
 RUN npm i -g @dataform/cli
 RUN dataform install
@@ -16,9 +17,3 @@ COPY script.sh ./
 
 ENTRYPOINT "./server"
 
-
-#FROM dataformco/dataform:1.19.0
-#USER root
-#WORKDIR /dataform
-#COPY --from=builder /app/server ./
-#copy dbt_prje
