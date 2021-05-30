@@ -1,8 +1,8 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}', '.' ]
-#images:
-#- 'europe-west1-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE)'
+  args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:$COMMIT_SHA', '.' ]
+images:
+- 'europe-west1-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE):$COMMIT_SHA'
 # Deploy container image to Cloud Run
 #- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #j   entrypoint: gcloud
@@ -11,4 +11,4 @@ substitutions:
  _REPOSITORY: dataform-cr-docker
  _IMAGE: dataform-cr
 images:
-- 'europe-west1-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/dataform-cr'
+- 'europe-west1-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:$COMMIT_SHA'
