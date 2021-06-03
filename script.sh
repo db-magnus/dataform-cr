@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ! -f .df-credentials.json];then
+if [ ! -f .df-credentials.json ] ; then
   cat /secret/.df-credentials.json > .df-credentials.json
 fi
 
