@@ -1,18 +1,12 @@
-FROM golang:1.13 as builder
-WORKDIR /app
-COPY invoke.go ./
-RUN CGO_ENABLED=0 GOOS=linux go build -v -o server
-
-FROM node:12.18.1
+FROM node:14-slim
 WORKDIR /dataform
+COPY index.js ./
 COPY dataform.json ./
 COPY definitions ./
 COPY package.json ./
-COPY --from=builder /app/server ./
 COPY script.sh ./
 
-RUN npm i -g @dataform/cli
+RUN yarn global add @dataform/cli
 RUN dataform install
 
-ENTRYPOINT "./server"
-
+CMD [ "node", "index.js" ]
