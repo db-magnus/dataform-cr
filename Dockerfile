@@ -2,7 +2,7 @@ FROM node:14-slim
 WORKDIR /dataform
 COPY index.js ./
 COPY dataform.json ./
-COPY definitions ./
+COPY definitions/ ./definitions/
 COPY package.json ./
 COPY script.sh ./
 
