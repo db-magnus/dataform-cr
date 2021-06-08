@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Dataform example for Cloud Run
 
 ```June 2021: This is a work-in-progress.```
@@ -98,3 +99,7 @@ D2021-06-03T21:56:58.615214Zchild process finished
 2021-06-03T21:56:58.632653ZGET200793 B5.6 scurl/7.64.0 https://url
 ```
 </details>
+=======
+# dataform-cr
+Cloud run for orchestration of dataform
+>>>>>>> 05e6ec7 (Initial commit)
