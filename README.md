@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Dataform example for Cloud Run
 
 ```June 2021: This is a work-in-progress.```
@@ -18,6 +17,16 @@ The webserver will then spawn a bash-script that runs dataform.
 
 
 ## Installation
+
+Enable apis
+```
+gcloud services enable cloudbuild.googleapis.com \
+run.googleapis.com \
+secretmanager.googleapis.com \
+sourcerepo.googleapis.com \
+artifactregistry.googleapis.com \
+cloudresourcemanager.googleapis.com
+```
 
 Add service account and policy binding for dataform:
 ```
@@ -60,9 +69,15 @@ Credentials file successfully written:
  ~/src/dataform-testing/.df-credentials.json
 To change connection settings, edit this file directly.
 ```
-Upload this file to Secret Manager, grant permission for cloud run to use it.
+Upload this file to Secret Manager
+```
+gcloud secrets create dataform-sa-key
+gcloud secrets versions add dataform-sa-key --data-file=.df-credentials.json
+```
+Go to Secret Manager in the console, permissions. Add the default compute service account as secretmanager.secretAccesor
 
 In Cloud Source, make a trigger to run cloud build on push to git.
+In cloud build, Settings, allow Cloud Build to manage Cloud Run by clicking enable.  
 
 
 ## Usage
@@ -72,34 +87,3 @@ Call Cloud Run with
 $ curl -H "Authorization: Bearer $(gcloud auth print-identity-token)" https://url-to-cloud-run
 
 ```
-
-## Current Error
-Dataform will compile and dry-run, but with run it will do an exit 0 with no error message....
-
-### Error log
-<details>
-  <summary>Click to expand</summary>
-
-  ```
-2021-06-03T21:56:53.651464Zstdout: -rw-rw-r-- 1 root root 2474 Jun 3 21:56 .df-credentials.json
-2021-06-03T21:56:53.651828Zstdout: starting dataform compile\n
-2021-06-03T21:56:54.932605Zstdout: Compiling...
-2021-06-03T21:56:55.274948Zstdout: [32mCompiled 0 action(s).[0m
-2021-06-03T21:56:55.305195Zstdout: dry run\n
-2021-06-03T21:56:56.585766Zstdout: Compiling...
-2021-06-03T21:56:56.938360Zstdout: [32mCompiled successfully.
-2021-06-03T21:56:56.938377Z[0m
-2021-06-03T21:56:56.943341Zstdout: Dry run (--dry-run) mode is turned on; not running the following actions against your warehouse:
-2021-06-03T21:56:56.961267Zstdout: run
-2021-06-03T21:56:58.239315Zstdout: Compiling...
-2021-06-03T21:56:58.581361Zstdout: [32mCompiled successfully.
-2021-06-03T21:56:58.599821Zstdout: Running...
-D2021-06-03T21:56:58.615214Zchild process finished
-2021-06-03T21:56:58.622666Zchild process exited with code 0
-2021-06-03T21:56:58.632653ZGET200793 B5.6 scurl/7.64.0 https://url
-```
-</details>
-=======
-# dataform-cr
-Cloud run for orchestration of dataform
->>>>>>> 05e6ec7 (Initial commit)
